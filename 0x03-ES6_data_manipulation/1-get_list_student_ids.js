@@ -3,14 +3,6 @@ export default function getListStudentIds(array) {
     return [];
   }
 
-  const list = [];
-  const myMap = new Map();
-  array.forEach((obj) => {
-    myMap.set(obj.id, obj);
-  });
-
-  myMap.forEach((value, key) => {
-    list.push(key);
-  });
-  return list;
+  const ids = array.map((obj) => obj.id);
+  return ids;
 }
