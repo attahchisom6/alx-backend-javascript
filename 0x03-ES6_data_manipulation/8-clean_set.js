@@ -1,11 +1,11 @@
 export default function cleanSet(set, startString) {
-  if (!(set instanceof Set) || !startString) {
-    return '';
+  let result = '';
+  if (!startString || !startString.length) {
+    return result;
   }
 
-  let result = '';
   for (const element of set) {
-    if (element === startString || element.startsWith(startString)) {
+    if (element && element.startsWith(startString)) {
       const trimmedString = element.substring(startString.length);
       result += `${trimmedString}-`;
     }
