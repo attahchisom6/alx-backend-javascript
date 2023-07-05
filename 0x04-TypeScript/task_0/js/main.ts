@@ -8,18 +8,18 @@ export interface Student {
 const student1: Student = {
   firstName: "John",
   lastName: "Doe",
-  age: "15",
+  age: 15,
   location: "Aba",
 };
 
 const student2: Student = {
   firstName: "Mary",
   lastName: "ngube",
-  age: "17",
+  age: 17,
   location: "Enugu",
 };
 
-const studentsList: Students[] =  [student1, student2];
+const studentsList: Student[] =  [student1, student2];
 
 const table = document.createElement('table');
 
