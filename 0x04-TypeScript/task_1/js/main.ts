@@ -39,6 +39,6 @@ const Director1: Directors = {
     fullTimeEmployee: true,
     location: 'London',
     numberOfReports: 17,
-}
-
+};
+g
 console.log(Director1);
