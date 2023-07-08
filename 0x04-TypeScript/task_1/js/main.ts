@@ -40,5 +40,11 @@ const Director1: Directors = {
     location: 'London',
     numberOfReports: 17,
 };
-g
+
 console.log(Director1);
+
+function printTeacher(firstName, lastName) {
+  console.log(`${firstName[0]} . ${lastName}`);
+}
+
+interface printTeacherFunction: printTeacher;
