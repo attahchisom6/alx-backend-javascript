@@ -42,3 +42,18 @@ console.log(obj1.workFromHome());
 
 const obj2 = new Director();
 console.log(obj2.workFromHome());
+
+function isDirector(employee: Teacher | Director): boolean {
+  return (employee instanceof Director) ? true: false;
+}
+
+function executeWork(employee: Teacher | Director) {
+  if (isDirector(employee)) {
+    employee.workDirectorTasks();
+  } else {
+    employee.workTeacherTasks();
+  }
+}
+
+executeWork(employee1);
+executeWork(employee3);
