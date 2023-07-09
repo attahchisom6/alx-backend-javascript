@@ -33,3 +33,9 @@ function createEmployee(salary: number | string) => new Director | new Teacher {
 console.log(createEmployee(200));
 console.log(createEmployee(500));
 console.log(createEmployee(1000));
+
+const obj1 = new Teacher();
+console.log(obj1.workFromHome());
+
+const obj2 = new Director();
+console.log(obj.workFromHome());
