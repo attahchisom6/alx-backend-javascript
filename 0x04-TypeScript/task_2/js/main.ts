@@ -11,19 +11,19 @@ interface TeacherInterface {
 }
 
 class Director implements DirectorInterface {
-  const workFromHome = () => "Working from Home";
-  const getToWork = () => "Getting a coffee break";
-  const workDirectorTasks = () => "Getting to director tasks";
+  workFromHome = () => "Working from Home";
+  getCoffeeBreak = () => "Getting a coffee break";
+  workDirectorTasks = () => "Getting to director tasks";
 }
 
 class Teacher implements TeacherInterface {
-  const workFromHome = () => "Cannot work from home";
-  const getCoffeeBreak = () => "Cannot have a break"
-  const workTeacherTasks = () => " Getting to work";
+  workFromHome = () => "Cannot work from home";
+  getCoffeeBreak = () => "Cannot have a break"
+  workTeacherTasks = () => " Getting to work";
 }
 
-function createEmployee(salary: number | string) => new Director | new Teacher {
-  if (salary < 500) {
+function createEmployee(salary: number | string): TeacherInterface | DirectorInterface {
+  if (typeof salary === 'number' && salary < 500) {
     return new Teacher();
   } else {
     return new Director();
@@ -38,4 +38,4 @@ const obj1 = new Teacher();
 console.log(obj1.workFromHome());
 
 const obj2 = new Director();
-console.log(obj.workFromHome());
+console.log(obj2.workFromHome());
