@@ -43,11 +43,11 @@ console.log(obj1.workFromHome());
 const obj2 = new Director();
 console.log(obj2.workFromHome());
 
-function isDirector(employee: Teacher | Director): boolean {
-  return (employee instanceof Director) ? true: false;
+function isDirector(employee: Teacher | Director): employee is Director {
+  return employee instanceof Director;
 }
 
-function executeWork(employee: Teacher | Director) {
+function executeWork(employee: Teacher | Director): void {
   if (isDirector(employee)) {
     employee.workDirectorTasks();
   } else {
@@ -57,3 +57,18 @@ function executeWork(employee: Teacher | Director) {
 
 executeWork(employee1);
 executeWork(employee3);
+
+type Subject = 'Math' | 'History';
+function teachClass(todayClass: Subjects): string {
+  if (todayClass === 'Math') {
+    return 'Teaching Msth';
+  }
+  else if (todayClass === 'History') {
+    return 'Teaching History';
+  } else {
+    return 'Invalid Subjects';
+  }
+}
+
+teachClass('Math');
+teachClass('History');
