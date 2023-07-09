@@ -30,9 +30,12 @@ function createEmployee(salary: number | string): TeacherInterface | DirectorInt
   }
 }
 
-console.log(createEmployee(200));
-console.log(createEmployee(500));
-console.log(createEmployee(1000));
+const employee1 = createEmployee(200);
+console.log(employee1.constructor.name);
+const employee2 = createEmployee(500);
+console.log(employee2.constructor.name)
+const employee3 = createEmployee(1000);
+console.log(employee3.constructor.name);
 
 const obj1 = new Teacher();
 console.log(obj1.workFromHome());
