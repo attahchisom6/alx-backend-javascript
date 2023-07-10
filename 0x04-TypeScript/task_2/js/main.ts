@@ -58,10 +58,10 @@ function executeWork(employee: Teacher | Director): void {
 executeWork(employee1);
 executeWork(employee3);
 
-type Subject = 'Math' | 'History';
+type Subjects = 'Math' | 'History';
 function teachClass(todayClass: Subjects): string {
   if (todayClass === 'Math') {
-    return 'Teaching Msth';
+    return 'Teaching Math';
   }
   else if (todayClass === 'History') {
     return 'Teaching History';
@@ -70,5 +70,5 @@ function teachClass(todayClass: Subjects): string {
   }
 }
 
-teachClass('Math');
-teachClass('History');
+console.log(teachClass('Math'));
+console.log(teachClass('History'));
