@@ -1,4 +1,4 @@
-import { RowID, RowElement } from './interface.ts';
+import { RowID, RowElement } from './interface';
 
 interface insertRow {
   (row: RowElement): RowID;

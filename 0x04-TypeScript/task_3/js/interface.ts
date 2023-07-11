@@ -4,3 +4,5 @@ interface RowElement {
   lastName: string;
   age?: number;
 }
+
+export { RowID, RowElement }
