@@ -1,15 +1,15 @@
 /// <reference path='./task_3/js/crude.d.ts' />
-import { RowID, RowElement } from './interface.js';
+import { RowID, RowElement } from './interface.ts';
 import * as CRUD from './crud.js';
 
-const row: RowElement {
+const row: RowElement = {
   firstName: 'Guillaume',
   lastName: 'Salva',
 };
 
 const newRowID: RowID = CRUD.insertRow(row);
 
-const updateRow: RowElement {
+const updateRow: RowElement = {
   ...row,
   age = 23,
 };
