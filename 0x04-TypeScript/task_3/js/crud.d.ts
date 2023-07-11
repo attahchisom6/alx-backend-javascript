@@ -1,15 +1,18 @@
 import { RowID, RowElement } from './interface';
 
-interface insertRow {
+// pls not that this module serve to provide type informations  for functions
+// in the crude.py module; it does not affect the run time of the programm
+
+interface InsertRow {
   (row: RowElement): RowID;
 }
 
-interface deleteRow {
+interface DeleteRow {
   (rowId: RowID): void;
 }
 
-interface updateRow {
+interface UpdateRow {
   (rowId: RowID, row: RowElement): RowID;
 }
 
-export { insertRow, deleteRow, updateRow };
+export { InsertRow as insertRow, DeleteRow as deleteRow, UpdateRow as updateRow };
