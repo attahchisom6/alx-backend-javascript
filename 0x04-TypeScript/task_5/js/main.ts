@@ -1,10 +1,11 @@
 export interface MajorCredits {
-  credits: float;
+
+  credits: number;
   brand: 'MajorCredits';
 }
 
 export interface MinorCredits {
-  credits: float;
+  credits: number;
   brand: 'MinorCredits';
 }
 
@@ -22,15 +23,14 @@ function sumMinorCredits(subject1: MinorCredits, subject2: MinorCredits): MinorC
   };
 }
 
-const subject1 = {
-  credits: "467.28",
+const subject1: MajorCredits = {
+  credits: 467.28,
   brand: "MajorCredits",
 }
 
-const subject2 = {
-  credits: "893.45",
-  brand: "MinorCredits",
+const subject2: MajorCredits = {
+  credits: 893.45,
+  brand: "MajorCredits",
 }
 
-console.log(sumMinorCredits(subject1, subject2));
 console.log(sumMajorCredits(subject1, subject2));

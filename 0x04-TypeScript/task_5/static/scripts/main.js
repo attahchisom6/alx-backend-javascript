@@ -15,12 +15,11 @@ function sumMinorCredits(subject1, subject2) {
     };
 }
 var subject1 = {
-    credits: "467.28",
+    credits: 467.28,
     brand: "MajorCredits"
 };
 var subject2 = {
-    credits: "893.45",
-    brand: "MinorCredits"
+    credits: 893.45,
+    brand: "MajorCredits"
 };
-console.log(sumMinorCredits(subject1, subject2));
 console.log(sumMajorCredits(subject1, subject2));
