@@ -23,6 +23,7 @@ function countStudents(path) {
       }
     }
 
+    // we subtract 2 bcos .csv files have empty lines at the end of the file and we are also excliding the headers
     const count = lines.length - 2;
     console.log(`Number of students: ${count}`);
     for (const field in studentByField) {
