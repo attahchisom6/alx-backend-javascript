@@ -9,11 +9,10 @@ console.log('Welcome to Holberton School, what is your name?');
 
 rl.on('line', (name) => {
   console.log(`Your name is: ${name}`);
-  console.log('This important software is now closing');
-  rl.close();
 });
 
 // listen for closing event
 rl.on('close', () => {
+  console.log('This important software is now closing');
   process.exit(0);
 });
