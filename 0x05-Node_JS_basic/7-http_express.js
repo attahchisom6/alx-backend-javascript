@@ -1,27 +1,24 @@
 const express = require('express');
 
-const args = process.argv.slice(2);
+const DATABASE = process.argv[2];
 const countStudents = require('./3-read_file_async');
 
-const DATABASE = args[0];
-
 const app = express();
-const port = 1245;
-
 app.get('/', (req, res) => {
-  res.send('Hello Holberton School!');
+    res.send('Hello Holberton School!');
 });
 
-app.get('/students', async (req, res) => {
-  const msg = 'This is the list of our students\n';
+app.get('/students', async(req, res) => {
   try {
-    const students = await countStudents(DATABASE);
-    res.send(`${msg}${students.join('\n')}`);
+    const result = await countStudents(DATABASE);
+    const introMsg = 'This is the list of our students\n';
+    const fullMsg = introMsg + result.join('\n');
+    res.send(fullMsg);
   } catch (error) {
-    res.send(`${msg}${error.message}`);
+      res.send('Page not found!');
   }
 });
 
-app.listen(port, () => { });
+app.listen(1245, '0.0.0.0');
 
 module.exports = app;

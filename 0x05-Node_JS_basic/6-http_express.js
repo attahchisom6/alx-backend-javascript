@@ -7,7 +7,7 @@ app.get('/', (req, res) => {
 });
 
 app.listen(1245, '0.0.0.0', () => {
-  console.log('Listening on port 1245');
+  console.log('Running server on all port, host: localhost');
 });
 
 module.exports = app;
