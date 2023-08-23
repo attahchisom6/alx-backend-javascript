@@ -6,11 +6,12 @@ async function countStudents(path) {
       if (err) {
         reject(new Error('Cannot load the database'));
       }
-      resolve(data);
+      resolve(data.response);
     });
   });
 
   return promise.then((data) => {
+    const response = [];
     const lines = data.split('\n');
     const headerList = ['firstname', 'lastname', 'age', 'field'];
     const headers = lines[0].split(',');
@@ -35,12 +36,12 @@ async function countStudents(path) {
     }
 
     const count = lines.length - 2;
-    console.log(`Number of students: ${count}`);
+    response.push(`Number of students: ${count}`);
 
     for (const field in studentByField) {
       if (field) {
         const list = studentByField[field].join(', ');
-        console.log(`Number of students in ${field}: ${studentByField[field].length}. List: ${list}`);
+        response.push(`Number of students in ${field}: ${studentByField[field].length}. List: ${list}`);
       }
     }
   });
