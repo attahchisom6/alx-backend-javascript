@@ -8,10 +8,15 @@ function calculateNumber(TYPE, a, b) {
     return c;
   } else if (TYPE === 'DIVIDE') {
     if (Math.round(b) === 0) {
-      console.log('Error');
+      c === 'Error';
+      return c;
     }
-    c = Math.round(a) / Math.round(b);
-    return c;
+    else {
+      c = Math.round(a) / Math.round(b);
+      return c;
+    }
+  } else {
+    return;
   }
 };
 
