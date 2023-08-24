@@ -1,22 +1,18 @@
 function calculateNumber(TYPE, a, b) {
-  let c;
+  if (isNaN(a) || isNaN(b)) {
+    throw new TypeError();
+  }
+
   if (TYPE === 'SUM') {
-    c = Math.round(a) + Math.round(b);
-    return c;
+    return Math.round(a) + Math.round(b);
   } else if (TYPE === 'SUBTRACT') {
-    c = Math.round(a) - Math.round(b);
-    return c;
+    return Math.round(a) - Math.round(b);
   } else if (TYPE === 'DIVIDE') {
     if (Math.round(b) === 0) {
-      c === 'Error';
-      return c;
+      return 'Error';
+    } else {
+      return Math.round(a) / Math.round(b);
     }
-    else {
-      c = Math.round(a) / Math.round(b);
-      return c;
-    }
-  } else {
-    return;
   }
 };
 
