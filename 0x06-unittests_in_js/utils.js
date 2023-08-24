@@ -6,16 +6,15 @@ const Utils = {
 
     if (TYPE === 'SUM') {
       return Math.round(a) + Math.round(b);
-    } else if (TYPE === 'SUBTRACT') {
+    } if (TYPE === 'SUBTRACT') {
       return Math.round(a) - Math.round(b);
-    } else if (TYPE === 'DIVIDE') {
+    } if (TYPE === 'DIVIDE') {
       if (Math.round(b) === 0) {
         return 'Error';
-      } else {
-        return Math.round(a) / Math.round(b);
       }
+      return Math.round(a) / Math.round(b);
     }
-  }
-}
+  },
+};
 
 module.exports = Utils;
