@@ -1,14 +1,10 @@
 const Utils = {
-  calculateNumber(TYPE, a, b) {
-    if (isNaN(a) || isNaN(b)) {
-      throw new TypeError();
-    }
-
-    if (TYPE === 'SUM') {
+  calculateNumber(type, a, b) {
+    if (type === 'SUM') {
       return Math.round(a) + Math.round(b);
-    } if (TYPE === 'SUBTRACT') {
+    } else if (type === 'SUBTRACT') {
       return Math.round(a) - Math.round(b);
-    } if (TYPE === 'DIVIDE') {
+    } else if (type === 'DIVIDE') {
       if (Math.round(b) === 0) {
         return 'Error';
       }
