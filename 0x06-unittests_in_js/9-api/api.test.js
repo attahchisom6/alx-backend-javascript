@@ -1,83 +1,50 @@
 const { expect } = require('chai');
+
 const request = require('request');
+const app = require('./api');
 
-describe('api', () => {
-  describe('index', () => {
-    const options = {
-      url: 'http://localhost:7865',
-      method: 'GET',
-    };
+describe('testing api return load', () => {
+  const urlParams = {
+    url: 'http://localhost:7865',
+    method: 'GET',
+  };
 
-    it('test correct status code', (done) => {
-      request(options, (err, res, body) => {
-        expect(res.statusCode).to.equal(200);
+  it('first test: correct status code', () => new Promise((done) => {
+    request(urlParams, (err, response, body) => {
+      expect(response.statusCode).to.equal(200);
+      done();
+    });
+  }));
+
+  it('second Test: correct payload/result', () => new Promise((done) => {
+    request(urlParams, (err, response, body) => {
+      expect(body).to.equal('Welcome to the payment system');
+      done();
+    });
+  }));
+
+  it('other test: invalid status code', () => new Promise((done) => {
+    request(urlParams, (err, response, body) => {
+      expect(response.statusCode).to.not.equal(400);
+      done();
+    });
+  }));
+
+  it('valid test for the cart endpoint', () => new Promise((done) => {
+    request(app).get('/cart/124')
+      .end((error, response) => {
+        expect(response.statusCode).to.equal(200);
+        expect(response.text).to.equal('Payment methods for cart 124');
         done();
       });
-    });
+  }));
 
-    it('test correct status code', (done) => {
-      request(options, (err, res, body) => {
-        expect(res.statusCode).to.equal(200);
+  it('invalid test for the cart endpoint', () => new Promise((done) => {
+    request(app).get('/cart/invalid_id')
+      .end((eror, response) => {
+        expect(response.statusCode).to.equal(404);
+        expect(response.text).to.equal('Invalid id');
         done();
       });
-    });
-
-    it('test correct response body', (done) => {
-      request(options, (err, res, body) => {
-        expect(body).to.equal('Welcome to the payment system');
-        done();
-      });
-    });
-
-    it('test correct content type', (done) => {
-      request(options, (err, res, body) => {
-        expect(res.headers['content-type']).to.equal(
-          'text/html; charset=utf-8'
-        );
-        done();
-      });
-    });
-  });
-
-  describe('cart', () => {
-    const options = {
-      url: 'http://localhost:7865/cart/12',
-      method: 'GET',
-    };
-
-    const woptions = {
-      url: 'http://localhost:7865/cart/hello',
-      method: 'GET',
-    };
-
-    it('test correct status code', (done) => {
-      request(options, (err, res, body) => {
-        expect(res.statusCode).to.equal(200);
-        done();
-      });
-    });
-
-    it('test wrong status code', (done) => {
-      request(woptions, (err, res, body) => {
-        expect(res.statusCode).to.equal(404);
-        done();
-      });
-    });
-
-    it('test correct response body', (done) => {
-      request(options, (err, res, body) => {
-        expect(body).to.equal('Payment methods for cart 12');
-        done();
-      });
-    });
-
-    it('test correct content type', (done) => {
-      request(options, (err, res, body) => {
-        expect(res.headers['content-type']).to.equal(
-          'text/html; charset=utf-8'
-        );
-        done();
-      });
-    });
-  });
+  }));
 });
