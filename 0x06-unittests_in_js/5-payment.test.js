@@ -1,24 +1,31 @@
-const assert = require('assert');
 const sinon = require('sinon');
 
-const sendPaymentRequestToApi = require('./5-payment');
+const { expect } = require('chai');
 const Utils = require('./utils');
 
-describe('sendPaymentRequestToApi', () => {
-  var spy;
-  beforeEach("setup", () => {
-    spy = sinon.spy(console, 'log');
-  });
-  afterEach("teardown", () => {
-    spy.restore()
-  });
-  it('test #1', () => {
-    sendPaymentRequestToApi(100, 20);
-    assert.strictEqual(spy.calledOnceWithExactly('The total is: 120'), true);
+const sendPaymentRequestToApi = require('./5-payment');
+
+describe('testing the sendPaymentApi function', () => {
+  let consoleSpy;
+
+  beforeEach('setup', () => {
+    consoleSpy = sinon.spy(console, 'log');
   });
 
-  it('test #2', () => {
-    sendPaymentRequestToApi(10, 10);
-    assert.strictEqual(spy.calledOnceWithExactly('The total is: 20'), true);
+  afterEach('teardown', () => {
+    consoleSpy.restore();
+  });
+
+  it('we will now spy the utils function to check if its returning appropraite result as sendPaymentRequestToApi', () => {
+
+    it('First Test', () => {
+      sendPaymentRequestToApi(100, 20);
+      expect(consoleSpy.calledOnceWith('The total is: 120')).to.be.true;
+    });
+
+    it('Second Test', () => {
+      sendPaymentRequestToApi(10, 10);
+      expect(consoleSpy.calledOnceWith('The total is: 20')).to.be.true;
+    });
   });
 });

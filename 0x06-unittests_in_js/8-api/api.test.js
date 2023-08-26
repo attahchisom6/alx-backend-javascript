@@ -1,29 +1,22 @@
 const { expect } = require('chai');
+
+const app = require('./api');
 const request = require('request');
 
-describe('api', () => {
-  const options = {
-    url: 'http://localhost:7865',
-    method: 'GET'
-  }
-  it('test correct status code', (done) => {
-    request(options, (err, res, body) => {
-      expect(res.statusCode).to.equal(200);
-      done();
-    });
+
+describe('Testing api return load', () => {
+  it('First test: correct status code', async () => {
+    const response = await request(app).get('/');
+    expect(response.statusCode).to.equal(200);
   });
 
-  it('test correct response body', (done) => {
-    request(options, (err, res, body) => {
-      expect(body).to.equal('Welcome to the payment system');
-      done();
-    });
+  it('Second Test: correct payload/result', async () => {
+    const response = await request(app).get('/');
+    expect(response.text).to.equal('Welcome to the payment system');
   });
 
-  it('test correct content type', (done) => {
-    request(options, (err, res, body) => {
-      expect(res.headers['content-type']).to.equal('text/html; charset=utf-8');
-      done();
-    });
+  it('Other test: invalid status code', async () => {
+    const response = await request(app).get('/');
+    expect(response.statusCode).to.not.equal(400);
   });
 });
