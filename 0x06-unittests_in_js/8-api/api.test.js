@@ -5,18 +5,29 @@ const request = require('request');
 
 
 describe('Testing api return load', () => {
-  it('First test: correct status code', async () => {
-    const response = await request(app).get('/');
-    expect(response.statusCode).to.equal(200);
+  const urlParams = {
+    url: 'http://localhost:7865',
+    method: 'GET',
+  };
+
+  it('First test: correct status code', (done) => {
+    request(urlParams, (err, body, response) => {
+      expect(response.statusCode).to.equal(200);
+      done();
+    });
   });
 
-  it('Second Test: correct payload/result', async () => {
-    const response = await request(app).get('/');
-    expect(response.text).to.equal('Welcome to the payment system');
+  it('Second Test: correct payload/result', (done) => {
+    request(urlParams, (err, body, response) => {
+      expect(body.text).to.equal('Welcome to the payment system');
+      done();
+    });
   });
 
-  it('Other test: invalid status code', async () => {
-    const response = await request(app).get('/');
+  it('Other test: invalid status code', (done) => {
+    request(urlParams, (err, body, response) => {
     expect(response.statusCode).to.not.equal(400);
+      done();
+    });
   });
 });
