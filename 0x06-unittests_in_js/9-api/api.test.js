@@ -1,12 +1,17 @@
 const { expect } = require('chai');
 
 const request = require('request');
-const app = require('./api');
 
 describe('testing api return load', () => {
   const urlParams = {
     url: 'http://localhost:7865',
     method: 'GET',
+  };
+
+  const endPoint = process.argv[2];
+  const cartApi = {
+    url: `http://localhost:7865/${endPoint}`,
+    method = 'GET',
   };
 
   it('first test: correct status code', () => new Promise((done) => {
@@ -31,8 +36,7 @@ describe('testing api return load', () => {
   }));
 
   it('valid test for the cart endpoint', () => new Promise((done) => {
-    request(app).get('/cart/124')
-      .end((error, response) => {
+    request(cartApi/124, (error, response) => {
         expect(response.statusCode).to.equal(200);
         expect(response.text).to.equal('Payment methods for cart 124');
         done();
@@ -40,8 +44,9 @@ describe('testing api return load', () => {
   }));
 
   it('invalid test for the cart endpoint', () => new Promise((done) => {
-    request(app).get('/cart/invalid_id')
-      .end((eror, response) => {
+    request(cartApi/hello
+
+      , (eror, response) => {
         expect(response.statusCode).to.equal(404);
         expect(response.text).to.equal('Invalid id');
         done();
