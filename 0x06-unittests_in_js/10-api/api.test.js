@@ -1,75 +1,146 @@
 const { expect } = require('chai');
-
 const request = require('request');
-// pls note that in these code, response.text and body does the same thing
-// i.e expect(response.text) === expect(body)
 
-describe('testing api return load', () => {
-  const baseURL = 'http://localhost:7865';
+describe('api', () => {
+  describe('index', () => {
+    const options = {
+      url: 'http://localhost:7865',
+      method: 'GET',
+    };
 
-  it('first test: correct status code', (done) => {
-    request.get(baseURL, (err, response, body) => {
-      expect(response.statusCode).to.equal(200);
-      done();
+    it('test correct status code', (done) => {
+      request(options, (err, res, body) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+    });
+
+    it('test correct response body', (done) => {
+      request(options, (err, res, body) => {
+        expect(body).to.equal('Welcome to the payment system');
+        done();
+      });
+    });
+
+    it('test correct content type', (done) => {
+      request(options, (err, res, body) => {
+        expect(res.headers['content-type']).to.equal(
+          'text/html; charset=utf-8'
+        );
+        done();
+      });
     });
   });
 
-  it('second Test: correct payload/result', (done) => {
-    request.get(baseUrl, (err, response, body) => {
-      expect(body).to.equal('Welcome to the payment system');
-      done();
+  describe('cart', () => {
+    const options = {
+      url: 'http://localhost:7865/cart/12',
+      method: 'GET',
+    };
+
+    const woptions = {
+      url: 'http://localhost:7865/cart/hello',
+      method: 'GET',
+    };
+
+    it('test correct status code', (done) => {
+      request(options, (err, res, body) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+    });
+
+    it('test wrong status code', (done) => {
+      request(woptions, (err, res, body) => {
+        expect(res.statusCode).to.equal(404);
+        done();
+      });
+    });
+
+    it('test correct response body', (done) => {
+      request(options, (err, res, body) => {
+        expect(body).to.equal('Payment methods for cart 12');
+        done();
+      });
+    });
+
+    it('test correct content type', (done) => {
+      request(options, (err, res, body) => {
+        expect(res.headers['content-type']).to.equal(
+          'text/html; charset=utf-8'
+        );
+        done();
+      });
     });
   });
 
-  it('other test: invalid status code', (done) => {
-    request.get(baseUrl, (err, response, body) => {
-      expect(response.statusCode).to.not.equal(400);
-      done();
+  describe('available_payments', () => {
+
+    const options = {
+      url: 'http://localhost:7865/available_payments',
+      method: 'GET',
+    };
+
+    it('test correct status code', (done) => {
+      request(options, (err, res, body) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
     });
+
+    it('test correct content type', (done) => {
+      request(options, (err, res, body) => {
+        expect(res.headers['content-type']).to.equal(
+          'application/json; charset=utf-8'
+        );
+        done();
+      });
+    });
+
+    it('test correct response body', (done) => {
+      request(options, (err, res, body) => {
+        expect(body).to.equal(
+          '{"payment_methods":{"credit_cards":true,"paypal":false}}'
+        );
+        done();
+      });
+    });
+
   });
 
-  it('valid test for the cart endpoint', (done) => {
-    request.get(`${baseURL}/124`, (err, response, body) => {
-      expect(response.statusCode).to.equal(200);
-      expect(response.text).to.equal('Payment methods for cart 124');
-      done();
-    });
-  });
+  describe('login', () => {
 
-  it('invalid test for the cart endpoint', (done) => {
-    request.get(`${baseURL}/hello`, (err, response, body) => {
-      expect(response.statusCode).to.equal(404);
-      expect(response.text).to.equal('Invalid id');
-      done();
-    });
-  });
-
-  it('Test to if the endpoint returns avalaible payment from the system', (done) => {
-    const paymentData =  {
-      payment_methods: {
-        credit_cards: true,
-        paypal: false
+    const options = {
+      url: 'http://localhost:7865/login',
+      method: 'POST',
+      json: true,
+      body: {
+        userName: 'Betty'
       }
     };
-    request.get(`${baseURL}/payments_available`, (err, resppnse, body) => {
-      expect(response.statusCode).to.equal(200);
-      expect(body).to.deep.equal(paymentData);
-      done();
+
+    it('test correct status code', (done) => {
+      request(options, (err, res, body) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+    });
+    
+
+    it('test correct response body', (done) => {
+      request(options, (err, res, body) => {
+        expect(body).to.equal('Welcome Betty');
+        done();
+      });
+    });
+
+    it('test correct content type', (done) => {
+      request(options, (err, res, body) => {
+        expect(res.headers['content-type']).to.equal(
+          'text/html; charset=utf-8'
+        );
+        done();
+      });
     });
   });
-
-  it('Test to check the post endpoint to see if a user is properly created', (done) => {
-    const postData = { 'userName': 'Bob'};
-    const postUrlParams = {
-      url: `${baseURL}/login`,
-      json: postData,
-    };
-
-    request.post(postUrlParams, (error, response, body) => {
-      expect(response.statusCode).to.equal(200);
-      expect(JSON.parse(body)).to.equal('Welcome Bob');
-      done();
-    });
-  });
-
 });
