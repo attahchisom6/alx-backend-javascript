@@ -27,10 +27,14 @@ describe('testing api return load', () => {
     method: 'POST',
   };
 
-  const endPoints = [urlParams, ValidCartApi, InvalidCartApi, availablePayments, loginUser]
+  const endPoints = [urlParams, ValidCartApi, InvalidCartApi, availablePayments, loginUser];
 
-  beforeEach(request(endPoints, (err, response, body) => {
-    con
+  beforeEach('setup', request(endPoints, (err, response, body) => {
+    const response = response;
+    const responseBody = body;
+  }));
+
+  afterEach('all work doje<F11>
 
   it('first test: correct status code', () => new Promise((done) => {
     request(urlParams, (err, response, body) => {
