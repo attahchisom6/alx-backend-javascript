@@ -1,30 +1,33 @@
 const express = require('express');
 
 const app = express();
-app.use(express.urlencoded({ extended: true}))
-app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Welcome to the payment system');
 });
 
-app.get('/cart/:id([0-9]+)', (req, res) => {
-  res.send(`Payment methods for cart ${req.params.id}`);
+app.get(`/cart/:id`, (req, res) => {
+  const id = parseInt(req.params.id);
+  if (isNaN(id)) {
+    res.status(404).send('Invalid id');
+  } else {
+    res.send(`Payment methods for cart ${id}`);
+  }
 });
 
 app.get('/available_payments', (req, res) => {
-  res.set
-  res.json({
+  const data = {
     payment_methods: {
       credit_cards: true,
-      paypal: false,
-    },
-  });
+      paypal: false
+    }
+  }
+  res.send(data);
 });
 
 app.post('/login', (req, res) => {
-  const { userName } = req.body;
-  res.send(`Welcome ${userName}`);
+  const username = req.body.userName;
+  res.send(`Welcome ${username}`);
 });
 
 app.listen(7865, '0.0.0.0', () => {
