@@ -58,11 +58,18 @@ describe('testing api return load', () => {
     });
   });
 
-  it('Test to check the post endpoint tp see if a user is properly created', {} => {
-    postData = { 'userName', 'Bob'};
-    request.post({
+  it('Test to check the post endpoint to see if a user is properly created', (done) => {
+    const postData = { 'userName': 'Bob'};
+    const postUrlParams = {
       url: `${baseURL}/login`,
-      json: postData
-    }
+      json: postData,
+    };
+
+    request.post(postUrlParams, (error, response, body) => {
+      expect(response.statusCode).to.equal(200);
+      expect(JSON.parse(body)).to.equal('Welcome Bob');
+      done();
+    });
+  });
 
 });
