@@ -1,75 +1,68 @@
 const { expect } = require('chai');
 
 const request = require('request');
+// pls note that in these code, response.text and body does the same thing
+// i.e expect(response.text) === expect(body)
 
 describe('testing api return load', () => {
-  const urlParams = {
-    url: 'http://localhost:7865',
-    method: 'GET',
-  };
+  const baseURL = 'http://localhost:7865';
 
-  const ValidCartApi = {
-    url: 'http://localhost:7865/cart/124',
-    method = 'GET',
-  };
-  const InvalidCartApi = {
-    url: 'http://localhost:7865/cart/hello',
-    method: 'GET',
-  };
-
-  const availablePayments = {
-    url: 'http://localhost:7865/available_payments',
-    method: 'GET',
-  };
-
-  const loginUser = {
-    url: 'http://localhost:7865/login',
-    method: 'POST',
-  };
-
-  const endPoints = [urlParams, ValidCartApi, InvalidCartApi, availablePayments, loginUser];
-
-  beforeEach('setup', request(endPoints, (err, response, body) => {
-    const response = response;
-    const responseBody = body;
-  }));
-
-  afterEach('all work doje<F11>
-
-  it('first test: correct status code', () => new Promise((done) => {
-    request(urlParams, (err, response, body) => {
+  it('first test: correct status code', (done) => {
+    request.get(baseURL, (err, response, body) => {
       expect(response.statusCode).to.equal(200);
       done();
     });
-  }));
+  });
 
-  it('second Test: correct payload/result', () => new Promise((done) => {
-    request(urlParams, (err, response, body) => {
+  it('second Test: correct payload/result', (done) => {
+    request.get(baseUrl, (err, response, body) => {
       expect(body).to.equal('Welcome to the payment system');
       done();
     });
-  }));
+  });
 
-  it('other test: invalid status code', () => new Promise((done) => {
-    request(urlParams, (err, response, body) => {
+  it('other test: invalid status code', (done) => {
+    request.get(baseUrl, (err, response, body) => {
       expect(response.statusCode).to.not.equal(400);
       done();
     });
-  }));
+  });
 
-  it('valid test for the cart endpoint', () => new Promise((done) => {
-    request(ValidCartApi, (error, response) => {
-        expect(response.statusCode).to.equal(200);
-        expect(response.text).to.equal('Payment methods for cart 124');
-        done();
-      });
-  }));
+  it('valid test for the cart endpoint', (done) => {
+    request.get(`${baseURL}/124`, (err, response, body) => {
+      expect(response.statusCode).to.equal(200);
+      expect(response.text).to.equal('Payment methods for cart 124');
+      done();
+    });
+  });
 
-  it('invalid test for the cart endpoint', () => new Promise((done) => {
-    request(InvalidCartApi, (eror, response) => {
-        expect(response.statusCode).to.equal(404);
-        expect(response.text).to.equal('Invalid id');
-        done();
-      });
-  }));
+  it('invalid test for the cart endpoint', (done) => {
+    request.get(`${baseURL}/hello`, (err, response, body) => {
+      expect(response.statusCode).to.equal(404);
+      expect(response.text).to.equal('Invalid id');
+      done();
+    });
+  });
+
+  it('Test to if the endpoint returns avalaible payment from the system', (done) => {
+    const paymentData =  {
+      payment_methods: {
+        credit_cards: true,
+        paypal: false
+      }
+    };
+    request.get(`${baseURL}/payments_available`, (err, resppnse, body) => {
+      expect(response.statusCode).to.equal(200);
+      expect(body).to.deep.equal(paymentData);
+      done();
+    });
+  });
+
+  it('Test to check the post endpoint tp see if a user is properly created', {} => {
+    postData = { 'userName', 'Bob'};
+    request.post({
+      url: `${baseURL}/login`,
+      json: postData
+    }
+
 });
