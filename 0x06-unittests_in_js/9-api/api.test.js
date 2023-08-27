@@ -8,10 +8,13 @@ describe('testing api return load', () => {
     method: 'GET',
   };
 
-  const endPoint = process.argv[2];
-  const cartApi = {
-    url: `http://localhost:7865/${endPoint}`,
+  const ValidCartApi = {
+    url: 'http://localhost:7865/cart/124',
     method = 'GET',
+  };
+  const InvalidCartApi = {
+    url: 'http://localhost:7865/cart/hello',
+    method: 'GET',
   };
 
   it('first test: correct status code', () => new Promise((done) => {
@@ -36,7 +39,7 @@ describe('testing api return load', () => {
   }));
 
   it('valid test for the cart endpoint', () => new Promise((done) => {
-    request(cartApi/124, (error, response) => {
+    request(ValidCartApi, (error, response) => {
         expect(response.statusCode).to.equal(200);
         expect(response.text).to.equal('Payment methods for cart 124');
         done();
@@ -44,9 +47,7 @@ describe('testing api return load', () => {
   }));
 
   it('invalid test for the cart endpoint', () => new Promise((done) => {
-    request(cartApi/hello
-
-      , (eror, response) => {
+    request(InvalidCartApi, (eror, response) => {
         expect(response.statusCode).to.equal(404);
         expect(response.text).to.equal('Invalid id');
         done();
